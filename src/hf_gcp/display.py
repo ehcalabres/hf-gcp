@@ -205,7 +205,7 @@ def catalog(result: dict, *, location: str | None, project: str | None) -> None:
                 if hours != 1 or instance_count != 1:
                     detail.append(f"\n{usd(best['estimated_cost'])} for {hours:g}h × {replicas}")
                 console.print(
-                    Panel(detail, title="Cheapest compatible machine", title_align="left", border_style="green")
+                    Panel.fit(detail, title="Cheapest compatible machine", title_align="left", border_style="green")
                 )
                 if command := _preview_command(result, best, location, project):
                     console.print("Preview deployment", style="bold")
