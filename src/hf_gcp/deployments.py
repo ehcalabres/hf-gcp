@@ -18,7 +18,7 @@ from hf_gcp.errors import GcpError
 SCOPE = r"projects/(?P<project>[^/]+)/locations/(?P<location>[^/]+)"
 ENDPOINT = re.compile(rf"{SCOPE}/endpoints/[^/]+")
 OPERATION = re.compile(rf"{SCOPE}/(?:endpoints/[^/]+/)?operations/[^/]+")
-MANAGED_FILTER = f'labels.{MANAGED_LABEL}="true" OR labels.hf-cloud="true"'
+MANAGED_FILTER = f'labels.{MANAGED_LABEL}="true"'
 
 
 def endpoint_summary(endpoint: vertex.Endpoint) -> dict:

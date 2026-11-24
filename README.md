@@ -1,10 +1,8 @@
 # hf-gcp
 
 `hf-gcp` is a Hugging Face CLI extension for planning and deploying Hub
-models on Google Cloud Vertex AI online prediction endpoints. It extracts the
-Vertex AI workflow from [hf-cloud](https://github.com/ehcalabres/hf-cloud) and
-follows the command structure of [hf-aws](https://github.com/ehcalabres/hf-aws)
-and [hf-msft-foundry](https://github.com/alvarobartt/hf-msft-foundry).
+models on Google Cloud Vertex AI online prediction endpoints. It also runs as
+a standalone command.
 
 ## Installation
 
@@ -111,11 +109,11 @@ deployment has been submitted. Pass its full operation name to
 `deployments wait` to see whether it succeeded. You can also wait for a
 model to appear with `deployments wait ENDPOINT`.
 
-List includes endpoints created by `hf-gcp` and `hf-cloud`. Add `--all` for
-all endpoints in the selected region. Management commands accept an endpoint
-ID, display name, or full resource name. Use the full name when display names
-are ambiguous. For custom requests, pass `--payload @request.json` and add
-`--raw` when the container expects a body without Vertex's `instances`
+By default, `deployments list` shows endpoints labeled `hf-gcp=true`. Add
+`--all` for all endpoints in the selected region. Management commands accept
+an endpoint ID, display name, or full resource name. Use the full name when
+display names are ambiguous. For custom requests, pass `--payload @request.json`
+and add `--raw` when the container expects a body without Vertex's `instances`
 wrapper.
 
 Deleting an endpoint undeploys its models to release serving compute. Model

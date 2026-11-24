@@ -86,7 +86,18 @@ def test_apply_plan_submits_typed_vertex_requests(monkeypatch, wait):
     assert deploy.result.called == wait
 
 
-def test_resolve_existing_hf_cloud_display_name(monkeypatch):
+@pytest.mark.parametrize("all_endpoints, expected_filter", [(False, 'labels.hf-gcp="true"'), (True, "")])
+def test_list_endpoint_filter(monkeypatch, all_endpoints, expected_filter):
+    endpoints, _, _ = mock_scope(monkeypatch)
+    endpoints.list_endpoints.return_value = []
+    manager = deployments.Deployments("demo", "us-central1")
+    assert manager.list(all_endpoints=all_endpoints) == []
+    request = vertex.ListEndpointsRequest(endpoints.list_endpoints.call_args.kwargs["request"])
+    assert request.parent == PARENT
+    assert request.filter == expected_filter
+
+
+def test_resolve_endpoint_by_display_name(monkeypatch):
     endpoints, _, _ = mock_scope(monkeypatch)
     endpoints.get_endpoint.side_effect = NotFound("missing")
     endpoints.list_endpoints.return_value = [vertex.Endpoint(name=ENDPOINT, display_name="old-name")]
